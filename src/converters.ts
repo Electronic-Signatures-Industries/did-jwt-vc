@@ -13,7 +13,7 @@ import {
   PresentationPayload,
   W3CPresentation,
 } from './types'
-import { decodeJWT } from 'did-jwt'
+import { decodeJWT } from './jwt-selector'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function asArray(arg: any | any[]): any[] {

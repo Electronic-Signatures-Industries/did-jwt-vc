@@ -1,6 +1,6 @@
 {
-  "name": "did-jwt-vc",
-  "version": "2.1.6",
+  "name": "did-jwt-rsa-vc",
+  "version": "1.0.0",
   "description": "Create and verify W3C Verifiable Credentials and Presentations in JWT format",
   "source": "src/index.ts",
   "main": "./lib/index.js",
@@ -18,21 +18,27 @@
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "eslint --ignore-pattern \"src/**/*.test.[jt]s\" \"src/**/*.[jt]s\"",
     "prepare": "yarn build",
-    "prepublishOnly": "yarn test:ci && yarn format && yarn lint",
     "release": "semantic-release --debug"
   },
   "author": "mi-xu",
   "contributors": [
-    "Mircea Nistor <mircea.nistor@mesh.xyz>"
+    "Mircea Nistor <mircea.nistor@mesh.xyz>",
+    "Rogelio Morrell"
   ],
   "license": "ISC",
   "dependencies": {
+    "dag-jose-utils": "^1.0.0",
     "did-jwt": "^5.6.1",
-    "did-resolver": "^3.1.0"
+    "did-jwt-rsa": "^0.1.9",
+    "did-resolver": "^3.1.0",
+    "dotenv": "^10.0.0",
+    "jsrsasign": "^10.3.0",
+    "jsrsasign-util": "^1.0.5",
+    "rpc-utils": "^0.3.4"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/decentralized-identity/did-jwt-vc.git"
+    "url": "https://github.com/Electronic-Signatures-Industries/did-jwt-vc.git"
   },
   "jest": {
     "clearMocks": true,

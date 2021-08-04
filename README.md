@@ -2,14 +2,14 @@
 [![npm](https://img.shields.io/npm/v/did-jwt-vc.svg)](https://www.npmjs.com/package/did-jwt-vc)
 [![codecov](https://codecov.io/gh/decentralized-identity/did-jwt-vc/branch/master/graph/badge.svg)](https://codecov.io/gh/decentralized-identity/did-jwt-vc)
 
-# did-jwt-vc
+# did-jwt-rsa-vc
 
-Create and verify W3C Verifiable Credentials and Presentations in JWT format
+Create and verify W3C Verifiable Credentials and Presentations in JWT format. Fork off `did-jwt-vc`
 
 ## Installation
 
 ```
-npm install did-jwt-vc
+npm install did-jwt-rsa-vc
 ```
 
 ## Usage
@@ -18,16 +18,15 @@ npm install did-jwt-vc
 
 #### Prerequisites
 
-Create an `Issuer` object to sign JWTs using, for example [ethr-did](https://github.com/uport-project/ethr-did)
+Create an `Issuer` object to sign JWTs using `did:key` from XDV Universal Wallet
 
 ```typescript
-import * as EthrDID from 'ethr-did'
-import { Issuer } from 'did-jwt-vc'
+import { DIDManager } from 'xdv-universal-wallet'
+import { Issuer } from 'did-jwt-rsa-vc'
 
-const issuer: Issuer = new EthrDID({
-  identifier: '0xf1232f840f3ad7d23fcdaa84d6c66dac24efb198',
-  privateKey: 'd8b595680851765f38ea5405129244ba3cbad84467d190859f4c8b20c1ff6c75'
-})
+  const didManager = new DIDManager()
+  const didRSA = await didManager.create3ID_RSA()
+  const issuer: Issuer = didRSA.getIssuer()
 ```
 
 The `Issuer` object must contain a `did` attribute, an `alg` property that is used in the JWT header and a `signer`
@@ -39,7 +38,7 @@ Specify a `payload` matching the `CredentialPayload` or `JwtCredentialPayload` i
 with the previously configured `issuer` using the `createVerifiableCredentialJwt` function:
 
 ```typescript
-import { JwtCredentialPayload, createVerifiableCredentialJwt } from 'did-jwt-vc'
+import { JwtCredentialPayload, createVerifiableCredentialJwt } from 'did-jwt-rsa-vc'
 
 const vcPayload: JwtCredentialPayload = {
   sub: 'did:ethr:0x435df3eda57154cf8cf7926079881f2912f54db4',
@@ -68,7 +67,7 @@ be presented in the `vp.verifiableCredential` array. Create a JWT by signing it 
 using the `createVerifiablePresentationJwt` function:
 
 ```typescript
-import { JwtPresentationPayload, createVerifiablePresentationJwt } from 'did-jwt-vc'
+import { JwtPresentationPayload, createVerifiablePresentationJwt } from 'did-jwt-rsa-vc'
 
 const vpPayload: JwtPresentationPayload = {
   vp: {
@@ -108,7 +107,7 @@ const resolver = new Resolver(getResolver(providerConfig))
 Pass in a VC JWT along with the resolver to verify using the `verifyCredential` function:
 
 ```typescript
-import { verifyCredential } from 'did-jwt-vc'
+import { verifyCredential } from 'did-jwt-rsa-vc'
 
 const verifiedVC = await verifyCredential(vcJwt, resolver)
 console.log(verifiedVC)
@@ -156,7 +155,7 @@ console.log(verifiedVC)
 Pass in a VP JWT along with the resolver to verify using the `verifyPresentation` function:
 
 ```typescript
-import { verifyPresentation } from 'did-jwt-vc'
+import { verifyPresentation } from 'did-jwt-rsa-vc'
 
 const verifiedVP = await verifyPresentation(vpJwt, resolver)
 console.log(verifiedVP)

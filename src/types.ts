@@ -1,6 +1,5 @@
-import { Signer, JWTVerified, JWTHeader } from 'did-jwt'
+import { Signer, JWTVerified, JWTHeader } from './jwt-selector'
 
-export const JWT_ALG = 'ES256K'
 export const DID_FORMAT = /^did:([a-zA-Z0-9_]+):([:[a-zA-Z0-9_.-]+)(\/[^#]*)?(#.*)?$/
 export const JWT_FORMAT = /^[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$/
 export const DEFAULT_CONTEXT = 'https://www.w3.org/2018/credentials/v1'
@@ -182,6 +181,8 @@ export type VerifiableCredential = JWT | Verifiable<W3CCredential>
  */
 export type VerifiablePresentation = JWT | Verifiable<W3CPresentation>
 
+// eslint-disable-next-line
+// @ts-ignore
 export type VerifiedJWT = JWTVerified
 
 /**
@@ -211,6 +212,8 @@ export type VerifiedCredential = VerifiedJWT & {
  */
 export interface Issuer {
   did: string
+  // eslint-disable-next-line
+// @ts-ignore
   signer: Signer
   alg?: string
 }
@@ -231,6 +234,8 @@ export interface CreateCredentialOptions {
    * Allows including or overriding some header parameters for the resulting JWT.
    * If the issuer or holder does not list an `alg`, then the one specified in `header` will be used
    */
+  // eslint-disable-next-line
+// @ts-ignore
   header?: Partial<JWTHeader>
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [x: string]: any
